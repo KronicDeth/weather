@@ -2,10 +2,12 @@ defmodule Weather.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :weather,
-     version: "0.0.1",
+    [
+     app: :weather,
+     deps: deps,
      elixir: "~> 0.14.0",
-     deps: deps]
+     version: "0.0.1"
+    ]
   end
 
   # Configuration for the OTP application
