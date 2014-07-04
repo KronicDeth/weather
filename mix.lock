@@ -1,1 +1,2 @@
-%{"exmerl": {:package, "0.1.1"}}
+%{"exmerl": {:package, "0.1.1"},
+  "httpotion": {:package, "0.2.4"}}

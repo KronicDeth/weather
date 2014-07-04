@@ -16,7 +16,7 @@ defmodule Weather.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: []]
+    [applications: [:httpotion]]
   end
 
   # Dependencies can be hex.pm packages:
@@ -30,7 +30,8 @@ defmodule Weather.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:exmerl, "~> 0.1.1"} 
+      {:exmerl, "~> 0.1.1"},
+      {:httpotion, "~> 0.2.4"}
     ]
   end
 end
