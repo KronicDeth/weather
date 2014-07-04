@@ -6,6 +6,8 @@ defmodule Weather.Mixfile do
      app: :weather,
      deps: deps,
      elixir: "~> 0.14.0",
+     name: "Weather",
+     source_url: "https://github.com/KronicDeth/weather",
      version: "0.0.1"
     ]
   end
