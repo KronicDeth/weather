@@ -32,7 +32,7 @@ defmodule Weather.Mixfile do
     [
       {:ex_doc, github: "elixir-lang/ex_doc"},
       {:exmerl, "~> 0.1.1"},
-      {:httpotion, "~> 0.2.4"}
+      {:httpotion, github: "myfreeweb/httpotion"}
     ]
   end
 end
