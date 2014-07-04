@@ -22,14 +22,19 @@ defmodule Weather.CLI do
 
     case parse do
       {[help: true], _, _} -> :help
+      {_, [station]} -> station
       _ -> :help
     end
   end
 
   def process(:help) do
     IO.puts """
-    usage: weather
+    usage: weather <station>
     """
     System.halt(0)
+  end
+
+  def process(station) do
+    Weather.NOAA.fetch(station)
   end
 end
