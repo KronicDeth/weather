@@ -1,2 +1,3 @@
-%{"exmerl": {:package, "0.1.1"},
+%{"ex_doc": {:git, "git://github.com/elixir-lang/ex_doc.git", "ca71b84b9c3c7e23b4b661e485a909aee3fdbc3b", []},
+  "exmerl": {:package, "0.1.1"},
   "httpotion": {:package, "0.2.4"}}

@@ -30,6 +30,7 @@ defmodule Weather.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
+      {:ex_doc, github: "elixir-lang/ex_doc"},
       {:exmerl, "~> 0.1.1"},
       {:httpotion, "~> 0.2.4"}
     ]
