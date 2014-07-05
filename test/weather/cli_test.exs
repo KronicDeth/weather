@@ -1,4 +1,4 @@
-defmodule CliTest do
+defmodule Weather.CLITest do
   use ExUnit.Case
 
   import Weather.CLI,
