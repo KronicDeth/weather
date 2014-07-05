@@ -1,11 +1,11 @@
 defmodule Weather.Pressure do
   @moduledoc """
   A pressure's `magnitude` along with the `units` of the magnitude.  Supported
-  `units` are `"in Hg" for inches mercury and `"mb"` for millibars.
+  `units` are `"in Hg"` for inches mercury and `"mb"` for millibars.
 
   Pressures can be converted between the two units using the conversion
-  function: `to_in_hg/1`, `to_mb/1`.  Conversion functions called on pressures
-  already in the target `units` return the given pressure.
+  functions: `to_in_hg/1` and `to_mb/1`.  Conversion functions called on
+  pressures already in the target `units` return the given pressure.
   """
 
   defstruct magnitude: 0.0 :: float,
