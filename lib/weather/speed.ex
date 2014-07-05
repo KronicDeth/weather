@@ -4,8 +4,8 @@ defmodule Weather.Speed do
   `units` are `"knots"` for knots and `"mph"` for miles per hour.
 
   Speeds can be converted between the two units using the conversion functions:
-  `to_knots/1`, `to_mph/1`.  Conversion functions called on speeds already in
-  the target `units` return the given speed.
+  `to_knots/1` and `to_mph/1`.  Conversion functions called on speeds already
+  in the target `units` return the given speed.
   """
 
   defstruct magnitude: 0.0 :: float,
