@@ -1,7 +1,7 @@
 defmodule Weather.Speed do
   @moduledoc """
-  A speed's `magnitude` along with the `units of the `magnitude`.  Supported
-  `units` are "knots" for knots and "mph" for miles per hour.
+  A speed's `magnitude` along with the `units` of the `magnitude`.  Supported
+  `units` are `"knots"` for knots and `"mph"` for miles per hour.
 
   Speeds can be converted between the two units using the conversion functions:
   `to_knots/1`, `to_mph/1`.  Conversion functions called on speeds already in
