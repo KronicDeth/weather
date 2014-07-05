@@ -11,6 +11,7 @@ defmodule Weather.Pressure do
   defstruct magnitude: 0.0 :: float,
             units: "in Hg" :: String.t
 
+  @spec to_in_hg(t) :: t
   def to_in_hg(pressure = %Weather.Pressure{units: "in Hg"}) do
     pressure
   end
@@ -25,6 +26,7 @@ defmodule Weather.Pressure do
   @doc """
   Returns the pressure converted to mb.
   """
+  @spec to_mb(t) :: t
   def to_mb(%Weather.Pressure{magnitude: in_hg, units: "in Hg"}) do
     %Weather.Pressure{magnitude: in_hg * 33.8637526, units: "mb"}
   end
