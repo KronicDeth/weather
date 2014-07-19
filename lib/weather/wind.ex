@@ -3,7 +3,12 @@ defmodule Weather.Wind do
   The wind heading in `degrees`, `direction`, and `speed`.
   """
 
-  defstruct degrees: 90.0 :: float,
-            direction: "East" :: String.t,
-            speed: %Weather.Speed{} :: Weather.Speed.t
+  defstruct degrees: 90.0,
+            direction: "East",
+            speed: %Weather.Speed{}
+  @type t :: %Weather.Wind{
+    degrees: float,
+    direction: String.t,
+    speed: Weather.Speed.t
+  }
 end

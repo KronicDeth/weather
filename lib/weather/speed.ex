@@ -8,8 +8,9 @@ defmodule Weather.Speed do
   in the target `units` return the given speed.
   """
 
-  defstruct magnitude: 0.0 :: float,
-            units: "mph" :: String.t
+  defstruct magnitude: 0.0,
+            units: "mph"
+  @type t :: %Weather.Speed{magnitude: float, units: String.t}
 
   @mph_per_knot 1.15077945
 

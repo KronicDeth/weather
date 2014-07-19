@@ -4,6 +4,7 @@ defmodule Weather.Distance do
   Supported `units` are `"mi"` for miles.
   """
 
-  defstruct magnitude: 0.0 :: float,
-            units: "mi" :: String.t
+  defstruct magnitude: 0.0,
+            units: "mi"
+  @type t :: %Weather.Distance{magnitude: float, units: String.t}
 end

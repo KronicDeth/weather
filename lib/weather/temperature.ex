@@ -8,8 +8,9 @@ defmodule Weather.Temperature do
   on temperatures already in the target `units` return the given temperature.
   """
 
-  defstruct degrees: 0.0 :: float,
-            units: "F" :: String.t
+  defstruct degrees: 0.0,
+            units: "F"
+  @type t :: %Weather.Temperature{degrees: float, units: String.t}
 
   @spec to_celsius(t) :: t
   def to_celsius(temperature = %Weather.Temperature{units: "C"}) do

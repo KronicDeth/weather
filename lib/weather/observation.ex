@@ -19,14 +19,26 @@ defmodule Weather.Observation do
      the combination of the `temperature` and `relative_humidity`.
   """
 
-  defstruct dewpoint: %Weather.Temperature{} :: Weather.Temperature.t,
-            heat_index: %Weather.Temperature{} :: Weather.Temperature.t,
-            pressure: %Weather.Pressure{} :: Weather.Pressure.t,
-            relative_humidity: 0 :: integer,
-            station: %Weather.Station{} :: Weather.Station.t,
-            temperature: %Weather.Temperature{} :: Weather.Temperature.t,
-            date: nil :: Timex.Date.t ,
+  defstruct dewpoint: %Weather.Temperature{},
+            heat_index: %Weather.Temperature{},
+            pressure: %Weather.Pressure{},
+            relative_humidity: 0,
+            station: %Weather.Station{},
+            temperature: %Weather.Temperature{},
+            date: nil,
             visibility: %Weather.Distance{},
-            weather: "Clear" :: String.t,
-            wind: %Weather.Wind{} :: Weather.Wind.t
+            weather: "Clear",
+            wind: %Weather.Wind{}
+  @type t :: %Weather.Observation{
+    dewpoint: Weather.Temperature.t,
+    heat_index: Weather.Temperature.t,
+    pressure: Weather.Pressure.t,
+    relative_humidity: integer,
+    station: Weather.Station.t,
+    temperature: Weather.Temperature.t,
+    date: Timex.Date.t,
+    visibility: Weather.Distance.t,
+    weather: String.t,
+    wind: Weather.Wind.t
+  }
 end

@@ -8,8 +8,9 @@ defmodule Weather.Pressure do
   pressures already in the target `units` return the given pressure.
   """
 
-  defstruct magnitude: 0.0 :: float,
-            units: "in Hg" :: String.t
+  defstruct magnitude: 0.0,
+            units: "in Hg"
+  @type t :: %Weather.Pressure{magnitude: float, units: String.t}
 
   @spec to_in_hg(t) :: t
   def to_in_hg(pressure = %Weather.Pressure{units: "in Hg"}) do

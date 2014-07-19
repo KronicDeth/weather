@@ -5,8 +5,14 @@ defmodule Weather.Station do
   station's location.  `latitude` is the latitude of the station.  `longitude`
   is the longitude of the station. 
   """
-  defstruct id: "" :: String.t,
-            location: "" :: String.t,
-            latitude: 0.0 :: float,
-            longitude: 0.0 :: float
+  defstruct id: "",
+            location: "",
+            latitude: 0.0,
+            longitude: 0.0
+  @type t :: %Weather.Station{
+    id: String.t,
+    location: String.t,
+    latitude: float,
+    longitude: float
+  }
 end
