@@ -33,7 +33,11 @@ defmodule Weather.Mixfile do
       {:ex_doc, github: "elixir-lang/ex_doc"},
       {:exmerl, "~> 0.1.1"},
       {:exvcr, "~> 0.2.0"},
+      # exvcr dependency that isn't defined
+      {:meck, github: "eproxus/meck"},
       {:httpotion, "~> 0.2.4"},
+      # if not declared explicitly, ibrowse.app cannot be found
+      {:ibrowse, github: "cmullaparthi/ibrowse"},
       {:timex, "~> 0.9.0"}
     ]
   end
