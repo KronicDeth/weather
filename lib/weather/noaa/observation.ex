@@ -15,6 +15,31 @@ defmodule Weather.NOAA.Observation do
   #
 
   @doc """
+  Gets the current observation for the station.
+
+  Returns {:ok, Weather.Observation} on success.  Returns
+  `{:error, :not_found} on failure.
+  """
+  def current(station_or_station_id, options \\ [])
+
+  @spec current(Weather.Station.t, temperature: String.t) :: {:error, :not_found}
+  @spec current(Weather.Station.t, temperature: String.t) :: {:ok, Weather.Observation.t}
+  def current(%Weather.Station{id: id}, options) do
+    current(id, options)
+  end
+
+  @spec current(String.t, temperature: String.t) :: {:error, :not_found}
+  @spec current(String.t, temperature: String.t) :: {:ok, Weather.Obseravation.t}
+  def current(station_id, options) when is_binary(station_id) do
+    case current_xml(station_id) do
+      {:ok, xmlElement} ->
+        {:ok, from_xml(xmlElement, options)}
+      error = {:error, _} ->
+        error
+    end
+  end
+
+  @doc """
   Gets the raw, unparsed XML for the station's current observation.
 
   Returns {`:ok`, unparsed_xml} on success.  Returns `{:error, :not_found}` on
@@ -68,13 +93,17 @@ defmodule Weather.NOAA.Observation do
   @doc """
   Parses `Weather.Observation` from XML fetched from weather.gov.
   """
-  @spec from_xml(Weather.NOAA.xmlDocument, temperature: String.t) :: Weather.Observation
-  def from_xml(document, options) do
-    station = Weather.NOAA.Station.from_xml(document)
-    temperature = temperature_from_xml(document, units: options[:temperature])
+  @spec from_xml(Weather.NOAA.xmlElement, temperature: String.t) :: Weather.Observation.t
+  def from_xml(current_observation_element, options) do
+    station = Weather.NOAA.Station.from_xml(current_observation_element)
+    temperature = temperature_from_xml(
+      current_observation_element,
+      units: options[:temperature]
+    )
 
     %Weather.Observation{
-      station: station
+      station: station,
+      temperature: temperature
     }
   end
 
@@ -82,14 +111,20 @@ defmodule Weather.NOAA.Observation do
   Extracts the `Whether.Temperature` in the given units.  If `:units` are
   `nil`, then the default units, `%Weather.Temperature{}.units` is used. 
   """
-  @spec temperature_from_xml(String.t, units: nil) :: Weather.Temperature.t
-  def temperature_from_xml(document, units: nil) do
-    temperature_from_xml(document, units: %Weather.Temperature{}.units)
+  @spec temperature_from_xml(Weather.NOAA.xmlElement, units: nil) :: Weather.Temperature.t
+  def temperature_from_xml(current_observation_element, units: nil) do
+    temperature_from_xml(
+      current_observation_element,
+      units: %Weather.Temperature{}.units
+    )
   end
 
-  @spec temperature_from_xml(String.t, units: String.t) :: Weather.Temperature.t
-  def temperature_from_xml(document, units: units) when is_binary(units) do
-    find_text(document, "//temperature_#{String.downcase(units)}")
+  @spec temperature_from_xml(Weather.NOAA.xmlElement, units: String.t) :: Weather.Temperature.t
+  def temperature_from_xml(current_observation_element, units: units) when is_binary(units) do
+    degrees = current_observation_element
+    |> find_text("//temp_#{String.downcase(units)}")
     |> String.to_float
+
+    %Weather.Temperature{degrees: degrees, units: units}
   end
 end

@@ -58,10 +58,11 @@ defmodule Weather.NOAA do
   @doc """
   Finds and extracts the text under the `xpath` from `document`.
   """
-  def find_text(document, xpath) do
-    [xmlText(value: text)] = Exmerl.XPath.find(document, "#{xpath}/text()")
+  def find_text(document_or_element, xpath) do
+    [xpathXmlText] = Exmerl.XPath.find(document_or_element, "#{xpath}/text()")
+    keywordList = xmlText(xpathXmlText)
 
-    String.Chars.to_string text
+    String.Chars.to_string keywordList[:value]
   end
 
   @doc """

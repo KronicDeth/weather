@@ -1,10 +1,8 @@
 defmodule Weather.NOAA.ObservationTest do
-  import Weather.NOAA,
-         only: [
-           xmlNamespace: 0
-         ]
   import Weather.NOAA.Observation,
          only: [
+           current: 1,
+           current: 2,
            current_raw: 1,
            current_xml: 1
          ]
@@ -34,6 +32,74 @@ defmodule Weather.NOAA.ObservationTest do
   #
   # Tests
   #
+
+  test "current with Weather.Station.t with invalid id" do
+    use_cassette "current_raw/invalid_id" do
+      assert current(invalid_weather_station) == {:error, :not_found}
+    end
+  end
+
+  test "current with Weather.Station.t with valid id" do
+    use_cassette "current_raw/valid_id" do
+      {flag, weather_observation} = current(valid_weather_station)
+
+      assert flag == :ok
+      assert weather_observation.station.id == valid_weather_station.id
+    end
+  end
+
+  test "current with invalid id" do
+    use_cassette "current_raw/invalid" do
+      assert current(invalid_id) == {:error, :not_found}
+    end
+  end
+
+  test "current with valid id" do
+    use_cassette "current_raw/valid" do
+      {flag, weather_observation} = current(valid_id)
+
+      assert flag == :ok
+      assert weather_observation.station.id == valid_id
+    end
+  end
+
+  test "current default temperature units" do
+    use_cassette "current_raw/valid" do
+      {_, weather_observation} = current(valid_id)
+      temperature = weather_observation.temperature
+
+      assert temperature.degrees == 80.0
+      assert temperature.units == "F"
+    end
+  end
+
+  test "current \"C\" temperature units" do
+    use_cassette "current_raw/valid" do
+      temperature_units = "C"
+      {_, weather_observation} = current(
+        valid_id,
+        temperature: temperature_units
+      )
+      temperature = weather_observation.temperature
+
+      assert temperature.degrees == 26.7
+      assert temperature.units == temperature_units
+    end
+  end
+
+  test "current \"F\" temperature units" do
+    use_cassette "current_raw/valid" do
+      temperature_units = "F"
+      {_, weather_observation} = current(
+        valid_id,
+        temperature: temperature_units
+      )
+      temperature = weather_observation.temperature
+
+      assert temperature.degrees == 80.0
+      assert temperature.units == temperature_units
+    end
+  end
 
   test "current_raw with Weather.Station.t with invalid id" do
     use_cassette "current_raw/invalid_id" do
