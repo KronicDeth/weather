@@ -10,11 +10,15 @@ defmodule Weather.NOAA.Station do
            find_text: 2
          ]
 
-  def from_xml(document) do
-    id = id_from_xml(document)
-    latitude = latitude_from_xml(document)
-    location = location_from_xml(document)
-    longitude = longitude_from_xml(document)
+  @doc """
+  Parses Weather.Station from `xmlElemnt`.
+  """
+  @spec from_xml(Weather.NOAA.xmlElement) :: Weather.Station.t
+  def from_xml(xmlElement) do
+    id = id_from_xml(xmlElement)
+    latitude = latitude_from_xml(xmlElement)
+    location = location_from_xml(xmlElement)
+    longitude = longitude_from_xml(xmlElement)
 
     %Weather.Station{
       id: id,

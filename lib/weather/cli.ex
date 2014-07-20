@@ -2,6 +2,9 @@ defmodule Weather.CLI do
   @moduledoc """
   Handle the command line parsing.
   """
+  #
+  # Functions
+  #
 
   def main(argv) do
     argv
@@ -27,6 +30,15 @@ defmodule Weather.CLI do
     end
   end
 
+  def print_weather({:error, message}) do
+    IO.puts "Error: #{message}"
+    System.halt(2)
+  end
+
+  def print_weather({:ok, weather}) do
+    IO.puts "Weather"
+  end
+
   def process(:help) do
     IO.puts """
     usage: weather <station>
@@ -35,6 +47,7 @@ defmodule Weather.CLI do
   end
 
   def process(station) do
-    Weather.NOAA.fetch(station)
+    Weather.NOAA.process(station)
+    |> print_weather
   end
 end
