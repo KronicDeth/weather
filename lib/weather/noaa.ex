@@ -58,22 +58,25 @@ defmodule Weather.NOAA do
   @doc """
   Finds and extracts the text under the `xpath` from `document`.
   """
+  @spec find_text(xmlElement, String.t) :: String.t
   def find_text(document_or_element, xpath) do
     [xpathXmlText] = Exmerl.XPath.find(document_or_element, "#{xpath}/text()")
     keywordList = xmlText(xpathXmlText)
 
-    String.Chars.to_string keywordList[:value]
+    keywordList[:value]
+    |> String.Chars.to_string
+    |> String.strip
   end
 
   @doc """
-  Converts raw, unparsed XML to xmlDocument
+  Converts raw, unparsed XML to root `xmlElement`
   """
-  @spec raw_to_xml(String.t) :: {:ok, xmlDocument}
+  @spec raw_to_xml(String.t) :: xmlElement
   def raw_to_xml(raw) do
-    {document, _rest} = Exmerl.from_string(
+    {root_element, _rest} = Exmerl.from_string(
       raw,
       acc_fun: fn
-        (xmlText(value: " ", pos: position), accumulator, global_state) ->
+        (xmlText(value: ' ', pos: position), accumulator, global_state) ->
           {accumulator, position, global_state} 
           (parsed_entity, accumulator, global_state) ->
             {[parsed_entity | accumulator], global_state}
@@ -81,6 +84,6 @@ defmodule Weather.NOAA do
       space: :normalize
     )
 
-    document
+    root_element
   end
 end
