@@ -8,6 +8,9 @@ defmodule Weather.Mixfile do
      elixir: "~> 0.14.3",
      name: "Weather",
      source_url: "https://github.com/KronicDeth/weather",
+     test_coverage: [
+       tool: ExCoveralls
+     ],
      version: "0.0.1"
     ]
   end
@@ -31,6 +34,7 @@ defmodule Weather.Mixfile do
   defp deps do
     [
       {:ex_doc, github: "elixir-lang/ex_doc"},
+      {:excoveralls, "~> 0.3.0"},
       {:exmerl, "~> 0.1.1"},
       {:exvcr, "~> 0.2.0"},
       # exvcr dependency that isn't defined

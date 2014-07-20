@@ -10,3 +10,5 @@ before_script:
   - mix deps.get
 script:
   - mix test
+after_success:
+  - "mix compile && mix coveralls.travis"
